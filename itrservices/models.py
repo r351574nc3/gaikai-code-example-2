@@ -7,14 +7,31 @@ class TrafficReport(object):
 
 class ReportEntry(object):
     def __init__(self):
-        pass
+        self._router        = None
+        self._location      = None
+        self._index         = None
+        self._response_time = None
+        self._packet_loss   = None
+        self._continent     = None
 
-    def Builder(self):
-        ReportEntryBuilder()
+    @classmethod
+    def create(cls, **kwargs):
+        retval = cls()
+        
+        for prop in kwargs:
+            attr = '_' + prop
+            if hasattr(retval, attr):
+                setattr(retval, attr, kwargs[prop])
+            else:
+                raise AttributeErrror
+            
+    @classmethod
+    def Builder(cls):
+        return ReportEntryBuilder()
 
     def __get_router(self):
         """Calculates the 'router' property."""
-        return self.side ** 2
+        return self._router
 
     def ___get_router(self):
         """Indirect accessor for 'router' property."""
@@ -22,18 +39,18 @@ class ReportEntry(object):
 
     def __set_router(self, router):
         """Sets the 'router' property."""
-        self.side = math.sqrt(router)
+        self._router = router
 
     def ___set_router(self, router):
         """Indirect setter for 'router' property."""
         self.__set_router(router)
 
     router = property(___get_router, ___set_router,
-        doc="""Gets or sets the router of the square.""")
+        doc="""Gets or sets the router of the report entry.""")
 
     def __get_location(self):
         """Calculates the 'location' property."""
-        return self.side ** 2
+        return self._location
 
     def ___get_location(self):
         """Indirect accessor for 'location' property."""
@@ -41,18 +58,18 @@ class ReportEntry(object):
 
     def __set_location(self, location):
         """Sets the 'location' property."""
-        self.side = math.sqrt(location)
+        self._location = location
 
     def ___set_location(self, location):
         """Indirect setter for 'location' property."""
         self.__set_location(location)
 
     location = property(___get_location, ___set_location,
-        doc="""Gets or sets the location of the square.""")
+        doc="""Gets or sets the location of the report entry.""")
     
     def __get_index(self):
         """Calculates the 'index' property."""
-        return self.side ** 2
+        return self._index
 
     def ___get_index(self):
         """Indirect accessor for 'index' property."""
@@ -60,18 +77,18 @@ class ReportEntry(object):
 
     def __set_index(self, index):
         """Sets the 'index' property."""
-        self.side = math.sqrt(index)
+        self._index = index
 
     def ___set_index(self, index):
         """Indirect setter for 'index' property."""
         self.__set_index(index)
 
     index = property(___get_index, ___set_index,
-        doc="""Gets or sets the index of the square.""") 
+        doc="""Gets or sets the index of the report entry.""") 
 
     def __get_response_time(self):
         """Calculates the 'response_time' property."""
-        return self.side ** 2
+        return self._response_time
 
     def ___get_response_time(self):
         """Indirect accessor for 'response_time' property."""
@@ -79,18 +96,18 @@ class ReportEntry(object):
 
     def __set_response_time(self, response_time):
         """Sets the 'response_time' property."""
-        self.side = math.sqrt(response_time)
+        self._response_time = response_time
 
     def ___set_response_time(self, response_time):
         """Indirect setter for 'response_time' property."""
         self.__set_response_time(response_time)
 
     response_time = property(___get_response_time, ___set_response_time,
-        doc="""Gets or sets the response_time of the square.""")
+        doc="""Gets or sets the response_time of the report entry.""")
 
     def __get_packet_loss(self):
         """Calculates the 'packet_loss' property."""
-        return self.side ** 2
+        return self._packet_loss
 
     def ___get_packet_loss(self):
         """Indirect accessor for 'packet_loss' property."""
@@ -98,18 +115,18 @@ class ReportEntry(object):
 
     def __set_packet_loss(self, packet_loss):
         """Sets the 'packet_loss' property."""
-        self.side = math.sqrt(packet_loss)
+        self._packet_loss = packet_loss
 
     def ___set_packet_loss(self, packet_loss):
         """Indirect setter for 'packet_loss' property."""
         self.__set_packet_loss(packet_loss)
 
     packet_loss = property(___get_packet_loss, ___set_packet_loss,
-        doc="""Gets or sets the packet_loss of the square.""")
+        doc="""Gets or sets the packet_loss of the report entry.""")
 
     def __get_continent(self):
         """Calculates the 'continent' property."""
-        return self.side ** 2
+        return self._continent
 
     def ___get_continent(self):
         """Indirect accessor for 'continent' property."""
@@ -117,17 +134,25 @@ class ReportEntry(object):
 
     def __set_continent(self, continent):
         """Sets the 'continent' property."""
-        self.side = math.sqrt(continent)
+        self._continent = continent
 
     def ___set_continent(self, continent):
         """Indirect setter for 'continent' property."""
         self.__set_continent(continent)
 
     continent = property(___get_continent, ___set_continent,
-        doc="""Gets or sets the continent of the square.""")
+        doc="""Gets or sets the continent of the report entry.""")
 
     
 class ReportEntryBuilder(object):
+    def __init__(self):
+        self.router        = None
+        self.location      = None
+        self.index         = None
+        self.response_time = None
+        self.packet_loss   = None
+        self.continent     = None
+    
     def with_router(self, router):
         self.router = router
         return self
@@ -153,11 +178,10 @@ class ReportEntryBuilder(object):
         return self
 
     def build(self):
-        retval = ReportEntry()
-        retval.router(self.router)
-        retval.location(self.location)
-        retval.index(self.index)
-        retval.response_time(self.response_time)
-        retval.packet_loss(self.packet_loss)
-        retval.continent(self.continent)
+        retval = ReportEntry.create(       router = self.router,
+                                         location = self.location,
+                                            index = self.index,
+                                    response_time = self.response_time,
+                                      packet_loss = self.packet_loss,
+                                        continent = self.continent     )
         return retval
