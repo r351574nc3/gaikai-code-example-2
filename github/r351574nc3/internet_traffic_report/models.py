@@ -55,12 +55,12 @@ class TrafficReport(object):
             ]
         
         It does this by converting each ReportEntry instance to its entry.__dict__ and adding it to a list. This list of 
-        primatives is then converted to json.
+        primitives is then converted to json.
         """
-        primatives = []
+        primitives = []
         for entry in self.entries:
             primatives.append(entry.__dict__)
-        return json.dump(primatives)
+        return json.dump(primitives)
         
 class TrafficReportBuilder(object):
     def __init__(self):

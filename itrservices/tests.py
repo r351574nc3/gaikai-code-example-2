@@ -40,7 +40,6 @@ class MockItrDispatcher(ItrDispatcher):
     def dispatch(self):
         """Does the actual dispatch, communication and retrieval of data. Any data is stored in the contents property"""
         self.contents = """
-
 <HTML>
 <HEAD>
     <META NAME="robots" CONTENT="index,follow">
