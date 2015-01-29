@@ -2,4 +2,8 @@ from django.test import TestCase
 
 # Create your tests here.
 class TrafficReportApiTests(TestCase):
-    pass
+    """
+    """
+    def test_(self):
+        """
+    

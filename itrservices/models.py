@@ -1,11 +1,11 @@
 from django.db import models
 
 # Create your models here.
-class TrafficReport:
+class TrafficReport(object):
     def __init__(self):
         self.entries = []
 
-class ReportEntry:    
+class ReportEntry(object):
     def __init__(self):
         pass
 
@@ -127,7 +127,7 @@ class ReportEntry:
         doc="""Gets or sets the continent of the square.""")
 
     
-class ReportEntryBuilder:
+class ReportEntryBuilder(object):
     def with_router(self, router):
         self.router = router
         return self
