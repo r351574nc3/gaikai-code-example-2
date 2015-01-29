@@ -1,5 +1,87 @@
 import json
 
+# Create your models here.
+class TrafficReport(object):
+    """A representation of a traffic report from http://www.internettrafficreport.com/details.htm as a python object. Generically,
+    speaking, it is a immutable wrapper around a list that only supports ReportEntry instances.
+
+    """
+    
+    def __init__(self):
+        self._entries = None
+
+    def __get_entries(self):
+        """Calculates the 'entries' property."""
+        return self._entries
+
+    def ___get_entries(self):
+        """Indirect accessor for 'entries' property."""
+        return self.__get_entries()
+
+    def __set_entries(self, entries):
+        """Sets the 'entries' property."""
+        self._entries = entries
+
+    def ___set_entries(self, entries):
+        """Indirect setter for 'entries' property."""
+        self.__set_entries(entries)
+
+    entries = property(___get_entries, ___set_entries,
+        doc="""Gets or sets the entries of the traffic report.""")
+
+    def __str__(self):
+        """
+        Converts the report to a JSON string representation of the data. Here is an example:
+
+            [
+               {
+                   "router": "misschaos.chaos-studio.com",
+                   "location": "China (Shanghai)",
+                   "index": 0,
+                   "response_time": 0,
+                   "packet_loss": 100,
+                   "continent": "Asia"
+               },
+               {
+                   "router": "cisco.syssrc.com",
+                   "location": "Maryland",
+                   "index": 88,
+                   "response_time": 112,
+                   "packet_loss": 0,
+                   "continent": "North America"
+               },
+             
+               etc ...
+            ]
+        
+        It does this by converting each ReportEntry instance to its entry.__dict__ and adding it to a list. This list of 
+        primatives is then converted to json.
+        """
+        primatives = []
+        for entry in self.entries:
+            primatives.append(entry.__dict__)
+        return json.dump(primatives)
+        
+class TrafficReportBuilder(object):
+    def __init__(self):
+        self.datasource = None
+    
+    def with_datasource(self, datasource):
+        self.datasource = datasource
+        return self
+
+    def build(self):
+        entries = 
+        retval = TrafficReport.create(       router = self.router,
+                                         location = self.location,
+                                            index = self.index,
+                                    response_time = self.response_time,
+                                      packet_loss = self.packet_loss,
+                                        continent = self.continent     )
+        return retval
+
+        
+
 class ReportEntry(object):
     """An individual Entry used in Traffic Report. It consists of router, location, index, response time, packet loss, and 
     continent attributes which make up a single entry for a site in the report.
@@ -141,36 +223,7 @@ class ReportEntry(object):
 
     continent = property(___get_continent, ___set_continent,
         doc="""Gets or sets the continent of the report entry.""")
-
-    def __dict__(self):
-
-    def __str__(self):
-        """
-        Converts the object to a JSON string representation of the data. Here is an example:
-
-            [
-               {
-                   "router": "misschaos.chaos-studio.com",
-                   "location": "China (Shanghai)",
-                   "index": 0,
-                   "response_time": 0,
-                   "packet_loss": 100,
-                   "continent": "Asia"
-               },
-               {
-                   "router": "cisco.syssrc.com",
-                   "location": "Maryland",
-                   "index": 88,
-                   "response_time": 112,
-                   "packet_loss": 0,
-                   "continent": "North America"
-               },
-             
-               etc ...
-            ]
-        """
         
-
     
 class ReportEntryBuilder(object):
     def __init__(self):

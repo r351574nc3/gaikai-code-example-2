@@ -1,8 +1,9 @@
 class ItrDispatcher(object):
     """Interface for negotiating protocols and handling data from Internet Traffic Results"""
 
-    def __init__(self, url):
-        self.url = url
+    def __init__(self):
+        self._url = None
+        self._contents = None
 
     def __get_contents(self):
         """Calculates the 'contents' property."""
@@ -41,30 +42,34 @@ class ItrDispatcher(object):
 
     url = property(___get_url, ___set_url,
         doc="""Gets or sets the url of the report entry.""")
+
+    def dispatch(self):
+        """Does the actual dispatch, communication and retrieval of data. Any data is stored in the contents property"""
+        pass
     
 class ItrDatasource(object):
     """
     Interface for Internet Traffic Results Datasources. The methods are stubbed out. They need to be implemented by an inheriting class.
     """
 
-    def __get_router(self):
-        """Calculates the 'router' property."""
-        return self._router
+    def __get_dispatcher(self):
+        """Calculates the 'dispatcher' property."""
+        return self._dispatcher
 
-    def ___get_router(self):
-        """Indirect accessor for 'router' property."""
-        return self.__get_router()
+    def ___get_dispatcher(self):
+        """Indirect accessor for 'dispatcher' property."""
+        return self.__get_dispatcher()
 
-    def __set_router(self, router):
-        """Sets the 'router' property."""
-        self._router = router
+    def __set_dispatcher(self, dispatcher):
+        """Sets the 'dispatcher' property."""
+        self._dispatcher = dispatcher
 
-    def ___set_router(self, router):
-        """Indirect setter for 'router' property."""
-        self.__set_router(router)
+    def ___set_dispatcher(self, dispatcher):
+        """Indirect setter for 'dispatcher' property."""
+        self.__set_dispatcher(dispatcher)
 
-    router = property(___get_router, ___set_router,
-        doc="""Gets or sets the router of the report entry.""")
+    dispatcher = property(___get_dispatcher, ___set_dispatcher,
+        doc="""Gets or sets the dispatcher of the datasource.""")
 
     def lookup_most_recent_results(self):
         """Queries ALL of the most recent results of the Internet Traffic Results.
