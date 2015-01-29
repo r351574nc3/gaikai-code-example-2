@@ -1,0 +1,6 @@
+Django==1.7.4
+dj-database-url
+dj-static
+gunicorn
+static3
+beautifulsoup4
