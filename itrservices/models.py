@@ -1,11 +1,21 @@
 from django.db import models
 
+import github.r351574nc3.internet_traffic_report
+
 # Create your models here.
 class TrafficReport(object):
+    """A representation of a traffic report from http://www.internettrafficreport.com/details.htm as a python object.
+
+    """
+    
     def __init__(self):
         self.entries = []
 
 class ReportEntry(object):
+    """An individual Entry used in Traffic Report. It consists of router, location, index, response time, packet loss, and 
+    continent attributes which make up a single entry for a site in the report.
+
+    """
     def __init__(self):
         self._router        = None
         self._location      = None

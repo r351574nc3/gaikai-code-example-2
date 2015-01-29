@@ -39,6 +39,13 @@ INSTALLED_APPS = (
 #    'django.contrib.auth',
 #    'django.contrib.staticfiles',
 
+ITRSERVICES = {
+    'default' : {
+        'ENGINE' : 'github.r351574nc3.internet_traffic_report.backends.http',
+        'URL'    : 'http://www.internettrafficreport.com/details.htm'
+    }
+}
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,8 +64,12 @@ WSGI_APPLICATION = 'gaikaisample.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-#DATABASES = {
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.dummy',
+        'NAME': 'Dummy',
+    }
+}
 
 # Disabling persistence
 #    'default': {
