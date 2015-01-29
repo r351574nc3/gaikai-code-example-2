@@ -73,29 +73,6 @@ class ItrDatasource(object):
             self: calling instance
 
         Returns:
-            a JSON string representation of the data. Here is an example:
-
-            [
-               {
-                   "router": "misschaos.chaos-studio.com",
-                   "location": "China (Shanghai)",
-                   "index": 0,
-                   "response_time": 0,
-                   "packet_loss": 100,
-                   "continent": "Asia"
-               },
-               {
-                   "router": "cisco.syssrc.com",
-                   "location": "Maryland",
-                   "index": 88,
-                   "response_time": 112,
-                   "packet_loss": 0,
-                   "continent": "North America"
-               },
-             
-               etc ...
-            ]
-
         Raises:"""
         pass
 

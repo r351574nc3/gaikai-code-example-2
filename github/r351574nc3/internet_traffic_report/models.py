@@ -1,15 +1,4 @@
-from django.db import models
-
-import github.r351574nc3.internet_traffic_report
-
-# Create your models here.
-class TrafficReport(object):
-    """A representation of a traffic report from http://www.internettrafficreport.com/details.htm as a python object.
-
-    """
-    
-    def __init__(self):
-        self.entries = []
+import json
 
 class ReportEntry(object):
     """An individual Entry used in Traffic Report. It consists of router, location, index, response time, packet loss, and 
@@ -152,6 +141,35 @@ class ReportEntry(object):
 
     continent = property(___get_continent, ___set_continent,
         doc="""Gets or sets the continent of the report entry.""")
+
+    def __dict__(self):
+
+    def __str__(self):
+        """
+        Converts the object to a JSON string representation of the data. Here is an example:
+
+            [
+               {
+                   "router": "misschaos.chaos-studio.com",
+                   "location": "China (Shanghai)",
+                   "index": 0,
+                   "response_time": 0,
+                   "packet_loss": 100,
+                   "continent": "Asia"
+               },
+               {
+                   "router": "cisco.syssrc.com",
+                   "location": "Maryland",
+                   "index": 88,
+                   "response_time": 112,
+                   "packet_loss": 0,
+                   "continent": "North America"
+               },
+             
+               etc ...
+            ]
+        """
+        
 
     
 class ReportEntryBuilder(object):
