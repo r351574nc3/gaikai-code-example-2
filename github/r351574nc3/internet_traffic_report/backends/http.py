@@ -47,38 +47,16 @@ class ItrHttpDatasource(ItrDatasource):
         self.dispatcher.url = url
 
 
-    def lookup_most_recent_results(self):
+     def lookup_most_recent_results(self):
         """Queries ALL of the most recent results of the Internet Traffic Results details page. Using the beautifulsoup4 module, 
         the data from an HTTP Request will be parsed for the string 'Most recent test results:'. It then creates a JSON formatted
         representation of the parsed data, and returns it. 
         
         Args:
             self: calling instance
-
+     
         Returns:
-            a JSON string representation of the data. Here is an example:
-
-            [
-               {
-                   "router": "misschaos.chaos-studio.com",
-                   "location": "China (Shanghai)",
-                   "index": 0,
-                   "response_time": 0,
-                   "packet_loss": 100,
-                   "continent": "Asia"
-               },
-               {
-                   "router": "cisco.syssrc.com",
-                   "location": "Maryland",
-                   "index": 88,
-                   "response_time": 112,
-                   "packet_loss": 0,
-                   "continent": "North America"
-               },
-             
-               etc ...
-            ]
-
+            An instance of TrafficReport with each router as a record of type ReportEntry.
         Raises:"""
         retval = TrafficReport()        
         
@@ -126,28 +104,7 @@ class ItrHttpDatasource(ItrDatasource):
             self: calling instance
 
         Returns:
-            a JSON string representation of the data. Here is an example
-
-            [
-               {
-                   "router": "misschaos.chaos-studio.com",
-                   "location": "China (Shanghai)",
-                   "index": 0,
-                   "response_time": 0,
-                   "packet_loss": 100,
-                   "continent": "Asia"
-               },
-               {
-                   "router": "cisco.syssrc.com",
-                   "location": "Maryland",
-                   "index": 88,
-                   "response_time": 112,
-                   "packet_loss": 0,
-                   "continent": "North America"
-               },
-             
-               etc ...
-            ]
+            Instance of TrafficReport containing a top router from each continent
         Raises:"""
         retval = TrafficReport()
         data = self.lookup_most_recent_results()
@@ -176,4 +133,104 @@ class ItrHttpDatasource(ItrDatasource):
         packet_loss = int(columns[ItrHttpDatasource.PACKET_LOSS_IDX].contents[0])
         entry = ReportEntry.Builder().with_router(columns[ItrHttpDatasource.ROUTER_IDX].find('b').string).with_location(columns[ItrHttpDatasource.LOCATION_IDX].find('b').string).with_index(columns[ItrHttpDatasource.INDEX_IDX].find('b').string).with_response_time(response_time).with_packet_loss(packet_loss).with_continent(continent)
         return entry
-        
+
+    
+def lookup_most_recent_results(self):
+    """Queries ALL of the most recent results of the Internet Traffic Results details page. Using the beautifulsoup4 module, 
+    the data from an HTTP Request will be parsed for the string 'Most recent test results:'. It then creates a JSON formatted
+    representation of the parsed data, and returns it. 
+    
+    Args:
+        self: calling instance
+
+    Returns:
+        a JSON string representation of the data. Here is an example:
+
+        [
+           {
+               "router": "misschaos.chaos-studio.com",
+               "location": "China (Shanghai)",
+               "index": 0,
+               "response_time": 0,
+               "packet_loss": 100,
+               "continent": "Asia"
+           },
+           {
+               "router": "cisco.syssrc.com",
+               "location": "Maryland",
+               "index": 88,
+               "response_time": 112,
+               "packet_loss": 0,
+               "continent": "North America"
+           },
+         
+           etc ...
+        ]
+
+    Raises:"""
+    pass
+
+def lookup_top_routers(self):
+    """Queries the most recent results for the top router in each continent.
+
+    Args:
+        self: calling instance
+
+    Returns:
+        a JSON string representation of the data. Here is an example
+
+        [
+           {
+               "router": "misschaos.chaos-studio.com",
+               "location": "China (Shanghai)",
+               "index": 0,
+               "response_time": 0,
+               "packet_loss": 100,
+               "continent": "Asia"
+           },
+           {
+               "router": "cisco.syssrc.com",
+               "location": "Maryland",
+               "index": 88,
+               "response_time": 112,
+               "packet_loss": 0,
+               "continent": "North America"
+           },
+         
+           etc ...
+        ]
+    Raises:"""
+    pass
+
+def lookup_results_by_router(self, router):
+    """Queries the most recent results and filters them by router name.
+
+    Args:
+        self: calling instance
+        router: string name of the router to get results for
+
+    Returns:
+        a JSON string representation of the data. Here is an example
+
+        [
+           {
+               "router": "misschaos.chaos-studio.com",
+               "location": "China (Shanghai)",
+               "index": 0,
+               "response_time": 0,
+               "packet_loss": 100,
+               "continent": "Asia"
+           },
+           {
+               "router": "cisco.syssrc.com",
+               "location": "Maryland",
+               "index": 88,
+               "response_time": 112,
+               "packet_loss": 0,
+               "continent": "North America"
+           },
+         
+           etc ...
+        ]
+    Raises:"""
+    pass
