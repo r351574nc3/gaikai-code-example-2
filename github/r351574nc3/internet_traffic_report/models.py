@@ -60,7 +60,7 @@ class TrafficReport(object):
         primitives = []
         for entry in self.entries:
             primitives.append(entry.__dict__)
-        return json.dump(primitives)
+        return json.dumps(primitives)
         
         
 

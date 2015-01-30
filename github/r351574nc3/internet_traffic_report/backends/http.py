@@ -24,9 +24,9 @@ class ItrHttpDispatcher(ItrDispatcher):
     """
     def dispatch(self):
         """Does the actual dispatch, communication and retrieval of data. Any data is stored in the contents property"""
-
-        html = urlopen(self.url)
-        return html
+        response = urlopen(self.url)
+        if (response is not None):
+            self.contents = response.read()
 
 class ItrHttpDatasource(ItrDatasource):
     """Implementation of ItrDatasource using HTTP."""

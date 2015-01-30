@@ -69,6 +69,7 @@ class TrafficReportApiTests(TestCase):
         self.assertTrue(isinstance(test_report, TrafficReport))
         self.assertEqual(len(test_report.entries), 5)
         self.assertEqual
+
         
 #########################################################################################
 # End of Tests                                                                          #
