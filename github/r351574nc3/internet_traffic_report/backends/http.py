@@ -143,7 +143,7 @@ def lookup_all_routers():
     Args:
 
     Returns:
-        a JSON string representation of the data. Here is an example:
+        a JSON string representation of the data. Here is an example::
 
         [
            {
@@ -177,7 +177,7 @@ def lookup_top_routers():
     Args:
 
     Returns:
-        a JSON string representation of the data. Here is an example
+        a JSON string representation of the data. Here is an example::
 
         [
            {
@@ -211,7 +211,7 @@ def lookup_routers_by_name(router):
         router: string name of the router to get results for
 
     Returns:
-        a JSON string representation of the data. Here is an example
+        a JSON string representation of the data. Here is an example::
 
         [
            {
