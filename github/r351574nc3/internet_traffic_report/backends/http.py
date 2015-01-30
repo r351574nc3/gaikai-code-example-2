@@ -109,19 +109,15 @@ class ItrHttpDatasource(ItrDatasource):
             router: string name of the router to get results for
 
         Returns:
-            a JSON string representation of the data. Here is an example
-            {
-                "router": "misschaos.chaos-studio.com",
-                "location": "China (Shanghai)",
-                "index": 0,
-                "response_time": 0,
-                "packet_loss": 100,
-                "continent": "Asia"
-            }
+           An instance of TrafficReport containing ReportEntry instances for each router that matches.
 
         Raises:"""
+        data = self.lookup_most_recent_results()
 
-        pass
+        retval = TrafficReport()
+        retval.entries = [record for record in data.entries if record.router == router]
+
+        return retval
 
     def lookup_top_routers(self):
         """Queries the most recent results for the top router in each continent.
@@ -153,7 +149,19 @@ class ItrHttpDatasource(ItrDatasource):
                etc ...
             ]
         Raises:"""
-        pass
+        retval = TrafficReport()
+        data = self.lookup_most_recent_results()
+        data_map = {}
+        sorted_entries = sorted(data.entries, key = lambda entry: entry.index)
+
+        for entry in sorted_entries:
+            if entry.continent not in data_map:
+                data_map[entry.continent] = entry
+
+        for k, entry in data_map.items():
+            retval.entries.append(entry)
+                
+        return retval
 
     def convert2entry(self, row, continent):
         """Takes a row Tag from BeautifulSoup and creates a ReportEntry instance from it
@@ -164,6 +172,8 @@ class ItrHttpDatasource(ItrDatasource):
             A handy, dandy, new ReportEntry instance
         """
         columns = row.find_all('td')
-        entry = ReportEntry.Builder().with_router(columns[ItrHttpDatasource.ROUTER_IDX].find('b').string).with_location(columns[ItrHttpDatasource.LOCATION_IDX].find('b').string).with_index(columns[ItrHttpDatasource.INDEX_IDX].find('b').string).with_response_time(columns[ItrHttpDatasource.RT_IDX].string).with_packet_loss(columns[ItrHttpDatasource.PACKET_LOSS_IDX].string).with_continent(continent)
+        response_time = int(columns[ItrHttpDatasource.RT_IDX].contents[0])
+        packet_loss = int(columns[ItrHttpDatasource.PACKET_LOSS_IDX].contents[0])
+        entry = ReportEntry.Builder().with_router(columns[ItrHttpDatasource.ROUTER_IDX].find('b').string).with_location(columns[ItrHttpDatasource.LOCATION_IDX].find('b').string).with_index(columns[ItrHttpDatasource.INDEX_IDX].find('b').string).with_response_time(response_time).with_packet_loss(packet_loss).with_continent(continent)
         return entry
         

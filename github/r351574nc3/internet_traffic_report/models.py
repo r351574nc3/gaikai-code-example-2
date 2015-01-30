@@ -225,15 +225,18 @@ class ReportEntryBuilder(object):
         return self
 
     def with_index(self, index):
-        self.index = index
+        if index is not None:
+            self.index = int(index)
         return self
 
     def with_response_time(self, response_time):
-        self.response_time = response_time
+        if response_time is not None:
+            self.response_time = int(response_time)
         return self
 
     def with_packet_loss(self, packet_loss):
-        self.packet_loss = packet_loss
+        if packet_loss is not None:
+            self.packet_loss = int(packet_loss)
         return self
 
     def with_continent(self, continent):

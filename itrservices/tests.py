@@ -3,8 +3,8 @@
 # from django.test import TestCase
 
 from unittest import TestCase
+from github.r351574nc3.internet_traffic_report.models import TrafficReport
 from github.r351574nc3.internet_traffic_report.backends.base import ItrDispatcher
-
 from github.r351574nc3.internet_traffic_report.backends.http import ItrHttpDatasource
 
 
@@ -27,7 +27,45 @@ class TrafficReportApiTests(TestCase):
         test_report = self.datasource.lookup_most_recent_results()
 
         self.assertTrue(test_report is not None)
+        self.assertTrue(isinstance(test_report, TrafficReport))
+        self.assertTrue(len(test_report.entries) == 75)
 
+    def test_lookup_most_recent_results2(self):
+        """Testing the usage of a datasource with no dispatcher"""
+        
+        temp_datasource = ItrHttpDatasource()
+        temp_datasource.dispatcher = None
+
+        test_report = self.datasource.lookup_most_recent_results()
+        
+
+    def test_lookup_results_by_router(self):
+        """Basic test for executing lookup_results_by_router"""
+        test_report = self.datasource.lookup_results_by_router('wormhole.homeisp.com')
+        self.assertTrue(test_report is not None)
+        self.assertTrue(isinstance(test_report, TrafficReport))
+        self.assertEqual(len(test_report.entries), 1)
+
+        test_entry = test_report.entries[0]
+        self.assertEqual(test_entry.location, 'Missouri (Kansas City)')
+        self.assertEqual(test_entry.index, 95)
+        self.assertEqual(test_entry.response_time, 42)
+        self.assertEqual(test_entry.packet_loss, 0)
+
+    def test_lookup_results_by_router2(self):
+        """Test lookup_results_by_router given a router that doesn't exist"""
+        
+        test_report = self.datasource.lookup_results_by_router('flickr.com')
+        self.assertTrue(test_report is not None)
+        self.assertEqual(len(test_report.entries), 0)
+        
+    def test_lookup_top_router_by_continent(self):
+        """Basic test for executing lookup_top_routers. Verifies that 5 results are returned."""
+        test_report = self.datasource.lookup_top_routers()
+        self.assertTrue(test_report is not None)
+        self.assertTrue(isinstance(test_report, TrafficReport))
+        self.assertEqual(len(test_report.entries), 5)
+        self.assertEqual
         
 #########################################################################################
 # End of Tests                                                                          #
