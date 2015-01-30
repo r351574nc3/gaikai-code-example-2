@@ -71,7 +71,7 @@ class ItrDatasource(object):
     dispatcher = property(___get_dispatcher, ___set_dispatcher,
         doc="""Gets or sets the dispatcher of the datasource.""")
 
-    def lookup_most_recent_results(self):
+    def lookup_all_routers(self):
         """Queries ALL of the most recent results of the Internet Traffic Results.
 
         Args:
@@ -81,7 +81,7 @@ class ItrDatasource(object):
         Raises:"""
         pass
 
-    def lookup_results_by_router(self, router):
+    def lookup_routers_by_name(self, router):
         """Queries the most recent results and filters them by router name.
 
         Args:
@@ -102,7 +102,7 @@ class ItrDatasource(object):
         Raises:"""
         pass
 
-    def lookup_top_router_by_continent(self, continent):
+    def lookup_top_routers(self, continent):
         """Queries the most recent results for the top router in each continent.
 
         Args:

@@ -6,9 +6,9 @@ from unittest import TestCase
 from github.r351574nc3.internet_traffic_report.models import TrafficReport
 from github.r351574nc3.internet_traffic_report.backends.base import ItrDispatcher
 from github.r351574nc3.internet_traffic_report.backends.http import ItrHttpDatasource
-from github.r351574nc3.internet_traffic_report.backends.http import lookup_most_recent_results
+from github.r351574nc3.internet_traffic_report.backends.http import lookup_all_routers
 from github.r351574nc3.internet_traffic_report.backends.http import lookup_top_routers
-from github.r351574nc3.internet_traffic_report.backends.http import lookup_results_by_router
+from github.r351574nc3.internet_traffic_report.backends.http import lookup_routers_by_name
 
 
 # Create your tests here.
@@ -24,27 +24,27 @@ class TrafficReportApiTests(TestCase):
     def tearDown(self):
         pass
     
-    def test_lookup_most_recent_results(self):
+    def test_lookup_all_routers(self):
         """Tests the method to retrieve the most recent internet traffic test results"""
         
-        test_report = self.datasource.lookup_most_recent_results()
+        test_report = self.datasource.lookup_all_routers()
 
         self.assertTrue(test_report is not None)
         self.assertTrue(isinstance(test_report, TrafficReport))
         self.assertTrue(len(test_report.entries) == 75)
 
-    def test_lookup_most_recent_results2(self):
+    def test_lookup_all_routers2(self):
         """Testing the usage of a datasource with no dispatcher"""
         
         temp_datasource = ItrHttpDatasource()
         temp_datasource.dispatcher = None
 
-        test_report = self.datasource.lookup_most_recent_results()
+        test_report = self.datasource.lookup_all_routers()
         
 
-    def test_lookup_results_by_router(self):
-        """Basic test for executing lookup_results_by_router"""
-        test_report = self.datasource.lookup_results_by_router('wormhole.homeisp.com')
+    def test_lookup_routers_by_name(self):
+        """Basic test for executing lookup_routers_by_name"""
+        test_report = self.datasource.lookup_routers_by_name('wormhole.homeisp.com')
         self.assertTrue(test_report is not None)
         self.assertTrue(isinstance(test_report, TrafficReport))
         self.assertEqual(len(test_report.entries), 1)
@@ -55,10 +55,10 @@ class TrafficReportApiTests(TestCase):
         self.assertEqual(test_entry.response_time, 42)
         self.assertEqual(test_entry.packet_loss, 0)
 
-    def test_lookup_results_by_router2(self):
-        """Test lookup_results_by_router given a router that doesn't exist"""
+    def test_lookup_routers_by_name2(self):
+        """Test lookup_routers_by_name given a router that doesn't exist"""
         
-        test_report = self.datasource.lookup_results_by_router('flickr.com')
+        test_report = self.datasource.lookup_routers_by_name('flickr.com')
         self.assertTrue(test_report is not None)
         self.assertEqual(len(test_report.entries), 0)
         

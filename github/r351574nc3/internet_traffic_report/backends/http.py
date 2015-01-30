@@ -47,7 +47,7 @@ class ItrHttpDatasource(ItrDatasource):
         self.dispatcher.url = url
 
 
-    def lookup_most_recent_results(self):
+    def lookup_all_routers(self):
         """Queries ALL of the most recent results of the Internet Traffic Results details page. Using the beautifulsoup4 module, 
         the data from an HTTP Request will be parsed for the string 'Most recent test results:'. It then creates a JSON formatted
         representation of the parsed data, and returns it. 
@@ -79,7 +79,7 @@ class ItrHttpDatasource(ItrDatasource):
         return retval
                 
         
-    def lookup_results_by_router(self, router):
+    def lookup_routers_by_name(self, router):
         """Queries the most recent results and filters them by router name.
 
         Args:
@@ -90,7 +90,7 @@ class ItrHttpDatasource(ItrDatasource):
            An instance of TrafficReport containing ReportEntry instances for each router that matches.
 
         Raises:"""
-        data = self.lookup_most_recent_results()
+        data = self.lookup_all_routers()
 
         retval = TrafficReport()
         retval.entries = [record for record in data.entries if record.router == router]
@@ -107,7 +107,7 @@ class ItrHttpDatasource(ItrDatasource):
             Instance of TrafficReport containing a top router from each continent
         Raises:"""
         retval = TrafficReport()
-        data = self.lookup_most_recent_results()
+        data = self.lookup_all_routers()
         data_map = {}
         sorted_entries = sorted(data.entries, key = lambda entry: entry.index)
 
@@ -135,7 +135,7 @@ class ItrHttpDatasource(ItrDatasource):
         return entry
 
     
-def lookup_most_recent_results():
+def lookup_all_routers():
     """Queries ALL of the most recent results of the Internet Traffic Results details page. Using the beautifulsoup4 module, 
     the data from an HTTP Request will be parsed for the string 'Most recent test results:'. It then creates a JSON formatted
     representation of the parsed data, and returns it. 
@@ -168,7 +168,7 @@ def lookup_most_recent_results():
 
     Raises:"""
     datasource = ItrHttpDatasource()
-    results = datasource.lookup_most_recent_results()
+    results = datasource.lookup_all_routers()
     return str(results)
 
 def lookup_top_routers():
@@ -204,7 +204,7 @@ def lookup_top_routers():
     results = datasource.lookup_top_routers()
     return str(results)
 
-def lookup_results_by_router(router):
+def lookup_routers_by_name(router):
     """Queries the most recent results and filters them by router name.
 
     Args:
@@ -235,5 +235,5 @@ def lookup_results_by_router(router):
         ]
     Raises:"""
     datasource = ItrHttpDatasource()
-    results = datasource.lookup_results_by_router(router)
+    results = datasource.lookup_routers_by_name(router)
     return str(results)
