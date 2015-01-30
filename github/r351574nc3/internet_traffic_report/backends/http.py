@@ -47,7 +47,7 @@ class ItrHttpDatasource(ItrDatasource):
         self.dispatcher.url = url
 
 
-     def lookup_most_recent_results(self):
+    def lookup_most_recent_results(self):
         """Queries ALL of the most recent results of the Internet Traffic Results details page. Using the beautifulsoup4 module, 
         the data from an HTTP Request will be parsed for the string 'Most recent test results:'. It then creates a JSON formatted
         representation of the parsed data, and returns it. 
@@ -135,13 +135,12 @@ class ItrHttpDatasource(ItrDatasource):
         return entry
 
     
-def lookup_most_recent_results(self):
+def lookup_most_recent_results():
     """Queries ALL of the most recent results of the Internet Traffic Results details page. Using the beautifulsoup4 module, 
     the data from an HTTP Request will be parsed for the string 'Most recent test results:'. It then creates a JSON formatted
     representation of the parsed data, and returns it. 
     
     Args:
-        self: calling instance
 
     Returns:
         a JSON string representation of the data. Here is an example:
@@ -168,13 +167,14 @@ def lookup_most_recent_results(self):
         ]
 
     Raises:"""
-    pass
+    datasource = ItrHttpDatasource()
+    results = datasource.lookup_most_recent_results()
+    return str(results)
 
-def lookup_top_routers(self):
+def lookup_top_routers():
     """Queries the most recent results for the top router in each continent.
 
     Args:
-        self: calling instance
 
     Returns:
         a JSON string representation of the data. Here is an example
@@ -200,13 +200,14 @@ def lookup_top_routers(self):
            etc ...
         ]
     Raises:"""
-    pass
+    datasource = ItrHttpDatasource()
+    results = datasource.lookup_top_routers()
+    return str(results)
 
-def lookup_results_by_router(self, router):
+def lookup_results_by_router(router):
     """Queries the most recent results and filters them by router name.
 
     Args:
-        self: calling instance
         router: string name of the router to get results for
 
     Returns:
@@ -233,4 +234,6 @@ def lookup_results_by_router(self, router):
            etc ...
         ]
     Raises:"""
-    pass
+    datasource = ItrHttpDatasource()
+    results = datasource.lookup_results_by_router(router)
+    return str(results)

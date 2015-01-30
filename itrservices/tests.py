@@ -6,6 +6,9 @@ from unittest import TestCase
 from github.r351574nc3.internet_traffic_report.models import TrafficReport
 from github.r351574nc3.internet_traffic_report.backends.base import ItrDispatcher
 from github.r351574nc3.internet_traffic_report.backends.http import ItrHttpDatasource
+from github.r351574nc3.internet_traffic_report.backends.http import lookup_most_recent_results
+from github.r351574nc3.internet_traffic_report.backends.http import lookup_top_routers
+from github.r351574nc3.internet_traffic_report.backends.http import lookup_results_by_router
 
 
 # Create your tests here.
