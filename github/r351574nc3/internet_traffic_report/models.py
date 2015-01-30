@@ -8,7 +8,7 @@ class TrafficReport(object):
     """
     
     def __init__(self):
-        self._entries = None
+        self._entries = []
 
     def __get_entries(self):
         """Calculates the 'entries' property."""
@@ -62,24 +62,6 @@ class TrafficReport(object):
             primitives.append(entry.__dict__)
         return json.dump(primitives)
         
-class TrafficReportBuilder(object):
-    def __init__(self):
-        self.datasource = None
-    
-    def with_datasource(self, datasource):
-        self.datasource = datasource
-        return self
-
-    def build(self):
-        entries = 
-        retval = TrafficReport.create(       router = self.router,
-                                         location = self.location,
-                                            index = self.index,
-                                    response_time = self.response_time,
-                                      packet_loss = self.packet_loss,
-                                        continent = self.continent     )
-        return retval
-
         
 
 class ReportEntry(object):

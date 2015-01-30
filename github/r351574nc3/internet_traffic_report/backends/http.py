@@ -5,7 +5,7 @@ traffic reports website as a read-only datastore.
 """
 
 try:
-    import urllib2
+    from urllib.request import urlopen
     from bs4 import BeautifulSoup
     
 except ImportError:
@@ -15,6 +15,8 @@ except ImportError:
 from django.conf import settings
 from github.r351574nc3.internet_traffic_report.backends.base import ItrDatasource
 from github.r351574nc3.internet_traffic_report.backends.base import ItrDispatcher
+from github.r351574nc3.internet_traffic_report.models import ReportEntry
+from github.r351574nc3.internet_traffic_report.models import TrafficReport
 
 class ItrHttpDispatcher(ItrDispatcher):
     """Generic HTTP dispatcher implementation. Handles making the HTTP request to internet traffic reports and retrieving the data
@@ -22,14 +24,21 @@ class ItrHttpDispatcher(ItrDispatcher):
     """
     def dispatch(self):
         """Does the actual dispatch, communication and retrieval of data. Any data is stored in the contents property"""
-        
-        req = urllib2.Request(url = self.url)
-        f.urllib2.urlopen(req)
 
-        return f.read()
+        html = urlopen(self.url)
+        return html
 
 class ItrHttpDatasource(ItrDatasource):
     """Implementation of ItrDatasource using HTTP."""
+
+    """When parsing, the number of children in the row will be this number"""
+    CONTINENT_COL_LENGTH = 3
+    EXPECTED_COL_LENGTH  = 11
+    ROUTER_IDX           = 0
+    LOCATION_IDX         = 1
+    INDEX_IDX            = 2
+    RT_IDX               = 3
+    PACKET_LOSS_IDX      = 4
 
     def __init__(self):
         # Assign a default
@@ -71,11 +80,27 @@ class ItrHttpDatasource(ItrDatasource):
             ]
 
         Raises:"""
+        retval = TrafficReport()        
+        
         if self.dispatcher is None:
             raise AttributeError("The Dispatcher is incorrectly configured.")
 
         self.dispatcher.dispatch()
-
+        soup = BeautifulSoup(self.dispatcher.contents)
+        
+        rows = soup.find(text = 'Most recent test results:').find_parent('table').contents
+        continent = None
+        
+        for row in rows:
+            if (hasattr(row, 'contents')):
+                if (len(row.contents) == ItrHttpDatasource.EXPECTED_COL_LENGTH
+                    and row.find('b') is not None):
+                    retval.entries.append(self.convert2entry(row, continent))
+                elif (len(row.contents) == ItrHttpDatasource.CONTINENT_COL_LENGTH):
+                    continent = row.find('b').string
+        return retval
+                
+        
     def lookup_results_by_router(self, router):
         """Queries the most recent results and filters them by router name.
 
@@ -130,3 +155,15 @@ class ItrHttpDatasource(ItrDatasource):
         Raises:"""
         pass
 
+    def convert2entry(self, row, continent):
+        """Takes a row Tag from BeautifulSoup and creates a ReportEntry instance from it
+        Args:
+            row: The row to parse into a Report Entry
+            continent: A row represents a router. This is the continent the router belongs to.
+        Returns:
+            A handy, dandy, new ReportEntry instance
+        """
+        columns = row.find_all('td')
+        entry = ReportEntry.Builder().with_router(columns[ItrHttpDatasource.ROUTER_IDX].find('b').string).with_location(columns[ItrHttpDatasource.LOCATION_IDX].find('b').string).with_index(columns[ItrHttpDatasource.INDEX_IDX].find('b').string).with_response_time(columns[ItrHttpDatasource.RT_IDX].string).with_packet_loss(columns[ItrHttpDatasource.PACKET_LOSS_IDX].string).with_continent(continent)
+        return entry
+        
