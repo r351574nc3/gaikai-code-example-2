@@ -8,8 +8,8 @@
     
     <title>Documentation for the Internet Traffic Report API &mdash; gaikai-code-example-2 0.0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -136,7 +136,7 @@ OK
 <span id="internet-traffic-report-classes"></span><h2>internet_traffic_report classes<a class="headerlink" href="#module-github.r351574nc3.internet_traffic_report" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-github.r351574nc3.internet_traffic_report.models"></span><dl class="class">
 <dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry">
-<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.models.</tt><tt class="descname">ReportEntry</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/models.html#ReportEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.models.</tt><tt class="descname">ReportEntry</tt><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/models.html#ReportEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry" title="Permalink to this definition">¶</a></dt>
 <dd><p>An individual Entry used in Traffic Report. It consists of router, location, index, response time, packet loss, and 
 continent attributes which make up a single entry for a site in the report.</p>
 <dl class="attribute">
@@ -179,7 +179,7 @@ continent attributes which make up a single entry for a site in the report.</p>
 
 <dl class="class">
 <dt id="github.r351574nc3.internet_traffic_report.models.TrafficReport">
-<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.models.</tt><tt class="descname">TrafficReport</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/models.html#TrafficReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.TrafficReport" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.models.</tt><tt class="descname">TrafficReport</tt><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/models.html#TrafficReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.TrafficReport" title="Permalink to this definition">¶</a></dt>
 <dd><p>A representation of a traffic report from <a class="reference external" href="http://www.internettrafficreport.com/details.htm">http://www.internettrafficreport.com/details.htm</a> as a python object. Generically,
 speaking, it is a immutable wrapper around a list that only supports ReportEntry instances.</p>
 <dl class="attribute">
@@ -192,7 +192,7 @@ speaking, it is a immutable wrapper around a list that only supports ReportEntry
 
 <span class="target" id="module-github.r351574nc3.internet_traffic_report.backends.base"></span><dl class="class">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource">
-<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.backends.base.</tt><tt class="descname">ItrDatasource</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.backends.base.</tt><tt class="descname">ItrDatasource</tt><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface for Internet Traffic Results Datasources. The methods are stubbed out. They need to be implemented by an inheriting class.</p>
 <dl class="attribute">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.dispatcher">
@@ -202,7 +202,7 @@ speaking, it is a immutable wrapper around a list that only supports ReportEntry
 
 <dl class="method">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_all_routers">
-<tt class="descname">lookup_all_routers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_all_routers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_all_routers" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">lookup_all_routers</tt><big>(</big><big>)</big><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_all_routers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_all_routers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Queries ALL of the most recent results of the Internet Traffic Results.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -214,7 +214,7 @@ Raises:</p>
 
 <dl class="method">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_routers_by_name">
-<tt class="descname">lookup_routers_by_name</tt><big>(</big><em>router</em><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_routers_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_routers_by_name" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">lookup_routers_by_name</tt><big>(</big><em>router</em><big>)</big><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_routers_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_routers_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Queries the most recent results and filters them by router name.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -238,7 +238,7 @@ router: string name of the router to get results for</dd>
 
 <dl class="method">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_top_routers">
-<tt class="descname">lookup_top_routers</tt><big>(</big><em>continent</em><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_top_routers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_top_routers" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">lookup_top_routers</tt><big>(</big><em>continent</em><big>)</big><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_top_routers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_top_routers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Queries the most recent results for the top router in each continent.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -279,7 +279,7 @@ router: string name of the router to get results for</dd>
 
 <dl class="class">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher">
-<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.backends.base.</tt><tt class="descname">ItrDispatcher</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDispatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.backends.base.</tt><tt class="descname">ItrDispatcher</tt><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDispatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface for negotiating protocols and handling data from Internet Traffic Results</p>
 <dl class="attribute">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.contents">
@@ -289,7 +289,7 @@ router: string name of the router to get results for</dd>
 
 <dl class="method">
 <dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.dispatch">
-<tt class="descname">dispatch</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDispatcher.dispatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.dispatch" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">dispatch</tt><big>(</big><big>)</big><a class="reference internal" href="modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDispatcher.dispatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Does the actual dispatch, communication and retrieval of data. Any data is stored in the contents property</p>
 </dd></dl>
 
@@ -326,7 +326,7 @@ router: string name of the router to get results for</dd>
                         title="previous chapter">Welcome to gaikai-code-example-2&#8217;s documentation!</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/gaikaisample.txt"
+    <li><a href="sources/gaikaisample.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
