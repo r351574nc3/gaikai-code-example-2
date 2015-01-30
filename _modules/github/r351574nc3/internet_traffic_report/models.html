@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>github.r351574nc3.internet_traffic_report.models &mdash; gaikai-code-example-2 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="gaikai-code-example-2 0.0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">gaikai-code-example-2 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for github.r351574nc3.internet_traffic_report.models</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="c"># Create your models here.</span>
+<div class="viewcode-block" id="TrafficReport"><a class="viewcode-back" href="../../../../gaikaisample.html#github.r351574nc3.internet_traffic_report.models.TrafficReport">[docs]</a><span class="k">class</span> <span class="nc">TrafficReport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A representation of a traffic report from http://www.internettrafficreport.com/details.htm as a python object. Generically,</span>
+<span class="sd">    speaking, it is a immutable wrapper around a list that only supports ReportEntry instances.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entries</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__get_entries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the &#39;entries&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entries</span>
+
+    <span class="k">def</span> <span class="nf">___get_entries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect accessor for &#39;entries&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_entries</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__set_entries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entries</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;entries&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entries</span> <span class="o">=</span> <span class="n">entries</span>
+
+    <span class="k">def</span> <span class="nf">___set_entries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entries</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect setter for &#39;entries&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_entries</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+
+    <span class="n">entries</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">___get_entries</span><span class="p">,</span> <span class="n">___set_entries</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;Gets or sets the entries of the traffic report.&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the report to a JSON string representation of the data. Here is an example:</span>
+
+<span class="sd">            [</span>
+<span class="sd">               {</span>
+<span class="sd">                   &quot;router&quot;: &quot;misschaos.chaos-studio.com&quot;,</span>
+<span class="sd">                   &quot;location&quot;: &quot;China (Shanghai)&quot;,</span>
+<span class="sd">                   &quot;index&quot;: 0,</span>
+<span class="sd">                   &quot;response_time&quot;: 0,</span>
+<span class="sd">                   &quot;packet_loss&quot;: 100,</span>
+<span class="sd">                   &quot;continent&quot;: &quot;Asia&quot;</span>
+<span class="sd">               },</span>
+<span class="sd">               {</span>
+<span class="sd">                   &quot;router&quot;: &quot;cisco.syssrc.com&quot;,</span>
+<span class="sd">                   &quot;location&quot;: &quot;Maryland&quot;,</span>
+<span class="sd">                   &quot;index&quot;: 88,</span>
+<span class="sd">                   &quot;response_time&quot;: 112,</span>
+<span class="sd">                   &quot;packet_loss&quot;: 0,</span>
+<span class="sd">                   &quot;continent&quot;: &quot;North America&quot;</span>
+<span class="sd">               },</span>
+<span class="sd">             </span>
+<span class="sd">               etc ...</span>
+<span class="sd">            ]</span>
+<span class="sd">        </span>
+<span class="sd">        It does this by converting each ReportEntry instance to its entry.__dict__ and adding it to a list. This list of </span>
+<span class="sd">        primitives is then converted to json.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">primitives</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entries</span><span class="p">:</span>
+            <span class="n">primitives</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">primitives</span><span class="p">)</span>
+        
+        
+</div>
+<div class="viewcode-block" id="ReportEntry"><a class="viewcode-back" href="../../../../gaikaisample.html#github.r351574nc3.internet_traffic_report.models.ReportEntry">[docs]</a><span class="k">class</span> <span class="nc">ReportEntry</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An individual Entry used in Traffic Report. It consists of router, location, index, response time, packet loss, and </span>
+<span class="sd">    continent attributes which make up a single entry for a site in the report.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_router</span>        <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_location</span>      <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_packet_loss</span>   <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_continent</span>     <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">attr</span> <span class="o">=</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="n">prop</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">prop</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">AttributeErrror</span>
+            
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">Builder</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ReportEntryBuilder</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__get_router</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the &#39;router&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_router</span>
+
+    <span class="k">def</span> <span class="nf">___get_router</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect accessor for &#39;router&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_router</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__set_router</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">router</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;router&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_router</span> <span class="o">=</span> <span class="n">router</span>
+
+    <span class="k">def</span> <span class="nf">___set_router</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">router</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect setter for &#39;router&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_router</span><span class="p">(</span><span class="n">router</span><span class="p">)</span>
+
+    <span class="n">router</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">___get_router</span><span class="p">,</span> <span class="n">___set_router</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;Gets or sets the router of the report entry.&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_location</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the &#39;location&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_location</span>
+
+    <span class="k">def</span> <span class="nf">___get_location</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect accessor for &#39;location&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_location</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__set_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;location&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_location</span> <span class="o">=</span> <span class="n">location</span>
+
+    <span class="k">def</span> <span class="nf">___set_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect setter for &#39;location&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_location</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+
+    <span class="n">location</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">___get_location</span><span class="p">,</span> <span class="n">___set_location</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;Gets or sets the location of the report entry.&quot;&quot;&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__get_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the &#39;index&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span>
+
+    <span class="k">def</span> <span class="nf">___get_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect accessor for &#39;index&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_index</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__set_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;index&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">=</span> <span class="n">index</span>
+
+    <span class="k">def</span> <span class="nf">___set_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect setter for &#39;index&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">index</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">___get_index</span><span class="p">,</span> <span class="n">___set_index</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;Gets or sets the index of the report entry.&quot;&quot;&quot;</span><span class="p">)</span> 
+
+    <span class="k">def</span> <span class="nf">__get_response_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the &#39;response_time&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_time</span>
+
+    <span class="k">def</span> <span class="nf">___get_response_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect accessor for &#39;response_time&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_response_time</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__set_response_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;response_time&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_time</span> <span class="o">=</span> <span class="n">response_time</span>
+
+    <span class="k">def</span> <span class="nf">___set_response_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect setter for &#39;response_time&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_response_time</span><span class="p">(</span><span class="n">response_time</span><span class="p">)</span>
+
+    <span class="n">response_time</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">___get_response_time</span><span class="p">,</span> <span class="n">___set_response_time</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;Gets or sets the response_time of the report entry.&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_packet_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the &#39;packet_loss&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_packet_loss</span>
+
+    <span class="k">def</span> <span class="nf">___get_packet_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect accessor for &#39;packet_loss&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_packet_loss</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__set_packet_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packet_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;packet_loss&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_packet_loss</span> <span class="o">=</span> <span class="n">packet_loss</span>
+
+    <span class="k">def</span> <span class="nf">___set_packet_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packet_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect setter for &#39;packet_loss&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_packet_loss</span><span class="p">(</span><span class="n">packet_loss</span><span class="p">)</span>
+
+    <span class="n">packet_loss</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">___get_packet_loss</span><span class="p">,</span> <span class="n">___set_packet_loss</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;Gets or sets the packet_loss of the report entry.&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_continent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the &#39;continent&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_continent</span>
+
+    <span class="k">def</span> <span class="nf">___get_continent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect accessor for &#39;continent&#39; property.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_continent</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__set_continent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">continent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;continent&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_continent</span> <span class="o">=</span> <span class="n">continent</span>
+
+    <span class="k">def</span> <span class="nf">___set_continent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">continent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indirect setter for &#39;continent&#39; property.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_continent</span><span class="p">(</span><span class="n">continent</span><span class="p">)</span>
+
+    <span class="n">continent</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">___get_continent</span><span class="p">,</span> <span class="n">___set_continent</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;Gets or sets the continent of the report entry.&quot;&quot;&quot;</span><span class="p">)</span>
+        
+    </div>
+<span class="k">class</span> <span class="nc">ReportEntryBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">router</span>        <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span>      <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">packet_loss</span>   <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">continent</span>     <span class="o">=</span> <span class="bp">None</span>
+    
+    <span class="k">def</span> <span class="nf">with_router</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">router</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">router</span> <span class="o">=</span> <span class="n">router</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">with_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">with_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">with_response_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response_time</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">response_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">response_time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">with_packet_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packet_loss</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">packet_loss</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">packet_loss</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">packet_loss</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">with_continent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">continent</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="n">ReportEntry</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>       <span class="n">router</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="p">,</span>
+                                         <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+                                            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                                    <span class="n">response_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_time</span><span class="p">,</span>
+                                      <span class="n">packet_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet_loss</span><span class="p">,</span>
+                                        <span class="n">continent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">continent</span>     <span class="p">)</span>
+        <span class="k">return</span> <span class="n">retval</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">gaikai-code-example-2 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Leo Przybylski.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

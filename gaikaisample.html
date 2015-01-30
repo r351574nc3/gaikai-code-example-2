@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Documentation for the Internet Traffic Report API &mdash; gaikai-code-example-2 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="gaikai-code-example-2 0.0.1 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to gaikai-code-example-2’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to gaikai-code-example-2’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">gaikai-code-example-2 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="documentation-for-the-internet-traffic-report-api">
+<h1>Documentation for the Internet Traffic Report API<a class="headerlink" href="#documentation-for-the-internet-traffic-report-api" title="Permalink to this headline">¶</a></h1>
+<p>A python api that gives internet traffic report updates from <a class="reference external" href="http://www.internettrafficreport.com/details.htm">http://www.internettrafficreport.com/details.htm</a>. There are 3 basic
+functions of the API</p>
+<ol class="arabic simple">
+<li>Retrieve all router information from the most recent test results.</li>
+<li>Retrieve only information about a specific router from the most recent test results.</li>
+<li>Retrieve only information about the top rated router in each continent from the most recent test results.</li>
+</ol>
+<p>There are two ways the API is exposed to users.</p>
+<ol class="arabic simple">
+<li>Python API (normal python functions)</li>
+<li>JSON API (hope you like to Django)</li>
+</ol>
+<div class="section" id="python-api-usage">
+<h2>Python API Usage<a class="headerlink" href="#python-api-usage" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>To retrieve all routers with python shell::</dt>
+<dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">github.r351574nc3.internet_traffic_report.backends.http</span> <span class="kn">import</span> <span class="n">ItrHttpDatasource</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datasource</span> <span class="o">=</span> <span class="n">ItrHttpDatasource</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_report</span> <span class="o">=</span> <span class="n">datasource</span><span class="o">.</span><span class="n">lookup_all_routers</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Router: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">test_report</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">router</span><span class="p">)</span>
+<span class="go">Router: misschaos.chaos-studio.com</span>
+</pre></div>
+</div>
+</dd>
+<dt>To retrieve the router from cisco.syssrc.com with python shell::</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">github.r351574nc3.internet_traffic_report.backends.http</span> <span class="kn">import</span> <span class="n">ItrHttpDatasource</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datasource</span> <span class="o">=</span> <span class="n">ItrHttpDatasource</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_report</span> <span class="o">=</span> <span class="n">datasource</span><span class="o">.</span><span class="n">lookup_routers_by_name</span><span class="p">(</span><span class="s">&#39;cisco.syssrc.com&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Router: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">test_report</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">router</span><span class="p">)</span>
+<span class="go">Router: cisco.syssrc.com</span>
+</pre></div>
+</div>
+</dd>
+<dt>To retrieve the top rated routers by continent with python shell::</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">github.r351574nc3.internet_traffic_report.backends.http</span> <span class="kn">import</span> <span class="n">ItrHttpDatasource</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datasource</span> <span class="o">=</span> <span class="n">ItrHttpDatasource</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_report</span> <span class="o">=</span> <span class="n">datasource</span><span class="o">.</span><span class="n">lookup_top_routers</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_report</span><span class="o">.</span><span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">test_report</span><span class="o">.</span><span class="n">entries</span> <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">continent</span> <span class="o">==</span> <span class="s">&#39;Asia&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Router: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">test_report</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">router</span><span class="p">)</span>
+<span class="go">Router: misschaos.chaos-studio.com</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="json-api-usage">
+<h2>JSON API Usage<a class="headerlink" href="#json-api-usage" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>The application was also written using Django. Views expose the JSON endpoints. First start the application with::</dt>
+<dd><p class="first">python manage.py runserver</p>
+<p>Performing system checks...</p>
+<p class="last">System check identified no issues (0 silenced).
+January 30, 2015 - 16:00:24
+Django version 1.7.4, using settings &#8216;gaikaisample.settings&#8217;
+Starting development server at <a class="reference external" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a>
+Quit the server with CONTROL-C.</p>
+</dd>
+</dl>
+<p>The API can be accessed from
+* <a class="reference external" href="http://localhost:8000/routers/">http://localhost:8000/routers/</a> (To retrieve all router information)
+* <a class="reference external" href="http://localhost:8000/routers/cisco.syssrc.com">http://localhost:8000/routers/cisco.syssrc.com</a> (To retrieve information about a specific router)
+* <a class="reference external" href="http://localhost:8000/continents/">http://localhost:8000/continents/</a> (For the top rated routers by content)</p>
+<dl class="docutils">
+<dt>Below is an example of the output::</dt>
+<dd>[{&#8220;continent&#8221;: &#8220;Asia&#8221;, &#8220;packet_loss&#8221;: 100, &#8220;location&#8221;: &#8220;China (Shanghai)&#8221;, &#8220;index&#8221;: 0, &#8220;response_time&#8221;: 0, &#8220;router&#8221;: &#8220;misschaos.chaos-studio.com&#8221;}, {&#8220;continent&#8221;: &#8220;Europe&#8221;, &#8220;packet_loss&#8221;: 100, &#8220;location&#8221;: &#8220;Africa (Gauteng)&#8221;, &#8220;index&#8221;: 0, &#8220;response_time&#8221;: 0, &#8220;router&#8221;: &#8220;ipsec.eskom.co.za&#8221;}, {&#8220;continent&#8221;: &#8220;Australia&#8221;, &#8220;packet_loss&#8221;: 100, &#8220;location&#8221;: &#8220;New Zealand (Auckland)&#8221;, &#8220;index&#8221;: 0, &#8220;response_time&#8221;: 0, &#8220;router&#8221;: &#8220;io.peace.co.nz&#8221;}, {&#8220;continent&#8221;: &#8220;North America&#8221;, &#8220;packet_loss&#8221;: 100, &#8220;location&#8221;: &#8220;California (Anaheim)&#8221;, &#8220;index&#8221;: 0, &#8220;response_time&#8221;: 0, &#8220;router&#8221;: &#8220;anhm7204.exo.com&#8221;}, {&#8220;continent&#8221;: &#8220;South America&#8221;, &#8220;packet_loss&#8221;: 0, &#8220;location&#8221;: &#8220;Colombia (Valle del Cauca)&#8221;, &#8220;index&#8221;: 86, &#8220;response_time&#8221;: 132, &#8220;router&#8221;: &#8220;router-ut1.uniweb.net.co&#8221;}]</dd>
+</dl>
+</div>
+<div class="section" id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h2>
+<p>While the framework used is Django, it was unable to be leveraged for unit testing due to the lack of database. Instead,
+<cite>unittest</cite> was used. Tests can be executed with:</p>
+<div class="highlight-python"><div class="highlight"><pre>python manage.py test itrservices
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.393s
+
+OK
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-github.r351574nc3.internet_traffic_report">
+<span id="internet-traffic-report-classes"></span><h2>internet_traffic_report classes<a class="headerlink" href="#module-github.r351574nc3.internet_traffic_report" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-github.r351574nc3.internet_traffic_report.models"></span><dl class="class">
+<dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry">
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.models.</tt><tt class="descname">ReportEntry</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/models.html#ReportEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>An individual Entry used in Traffic Report. It consists of router, location, index, response time, packet loss, and 
+continent attributes which make up a single entry for a site in the report.</p>
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry.continent">
+<tt class="descname">continent</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry.continent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the continent of the report entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry.index">
+<tt class="descname">index</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the index of the report entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry.location">
+<tt class="descname">location</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry.location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the location of the report entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry.packet_loss">
+<tt class="descname">packet_loss</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry.packet_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the packet_loss of the report entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry.response_time">
+<tt class="descname">response_time</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry.response_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the response_time of the report entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.models.ReportEntry.router">
+<tt class="descname">router</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.ReportEntry.router" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the router of the report entry.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="github.r351574nc3.internet_traffic_report.models.TrafficReport">
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.models.</tt><tt class="descname">TrafficReport</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/models.html#TrafficReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.TrafficReport" title="Permalink to this definition">¶</a></dt>
+<dd><p>A representation of a traffic report from <a class="reference external" href="http://www.internettrafficreport.com/details.htm">http://www.internettrafficreport.com/details.htm</a> as a python object. Generically,
+speaking, it is a immutable wrapper around a list that only supports ReportEntry instances.</p>
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.models.TrafficReport.entries">
+<tt class="descname">entries</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.models.TrafficReport.entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the entries of the traffic report.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-github.r351574nc3.internet_traffic_report.backends.base"></span><dl class="class">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource">
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.backends.base.</tt><tt class="descname">ItrDatasource</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface for Internet Traffic Results Datasources. The methods are stubbed out. They need to be implemented by an inheriting class.</p>
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.dispatcher">
+<tt class="descname">dispatcher</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.dispatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the dispatcher of the datasource.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_all_routers">
+<tt class="descname">lookup_all_routers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_all_routers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_all_routers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries ALL of the most recent results of the Internet Traffic Results.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>self: calling instance</dd>
+</dl>
+<p>Returns:
+Raises:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_routers_by_name">
+<tt class="descname">lookup_routers_by_name</tt><big>(</big><em>router</em><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_routers_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_routers_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the most recent results and filters them by router name.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>self: calling instance
+router: string name of the router to get results for</dd>
+<dt>Returns:</dt>
+<dd><p class="first">a JSON string representation of the data. Here is an example
+{</p>
+<blockquote>
+<div>&#8220;router&#8221;: &#8220;misschaos.chaos-studio.com&#8221;,
+&#8220;location&#8221;: &#8220;China (Shanghai)&#8221;,
+&#8220;index&#8221;: 0,
+&#8220;response_time&#8221;: 0,
+&#8220;packet_loss&#8221;: 100,
+&#8220;continent&#8221;: &#8220;Asia&#8221;</div></blockquote>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>Raises:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_top_routers">
+<tt class="descname">lookup_top_routers</tt><big>(</big><em>continent</em><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDatasource.lookup_top_routers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDatasource.lookup_top_routers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the most recent results for the top router in each continent.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>self: calling instance</dd>
+<dt>Returns:</dt>
+<dd><p class="first">a JSON string representation of the data. Here is an example</p>
+<dl class="docutils">
+<dt>[</dt>
+<dd><dl class="first docutils">
+<dt>{</dt>
+<dd>&#8220;router&#8221;: &#8220;misschaos.chaos-studio.com&#8221;,
+&#8220;location&#8221;: &#8220;China (Shanghai)&#8221;,
+&#8220;index&#8221;: 0,
+&#8220;response_time&#8221;: 0,
+&#8220;packet_loss&#8221;: 100,
+&#8220;continent&#8221;: &#8220;Asia&#8221;</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div>&#8220;router&#8221;: &#8220;cisco.syssrc.com&#8221;,
+&#8220;location&#8221;: &#8220;Maryland&#8221;,
+&#8220;index&#8221;: 88,
+&#8220;response_time&#8221;: 112,
+&#8220;packet_loss&#8221;: 0,
+&#8220;continent&#8221;: &#8220;North America&#8221;</div></blockquote>
+<p>},</p>
+<p class="last">etc ...</p>
+</dd>
+</dl>
+<p class="last">]</p>
+</dd>
+</dl>
+<p>Raises:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher">
+<em class="property">class </em><tt class="descclassname">github.r351574nc3.internet_traffic_report.backends.base.</tt><tt class="descname">ItrDispatcher</tt><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDispatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface for negotiating protocols and handling data from Internet Traffic Results</p>
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.contents">
+<tt class="descname">contents</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.contents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the contents of the report entry.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.dispatch">
+<tt class="descname">dispatch</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/github/r351574nc3/internet_traffic_report/backends/base.html#ItrDispatcher.dispatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the actual dispatch, communication and retrieval of data. Any data is stored in the contents property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.url">
+<tt class="descname">url</tt><a class="headerlink" href="#github.r351574nc3.internet_traffic_report.backends.base.ItrDispatcher.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the url of the report entry.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Documentation for the Internet Traffic Report API</a><ul>
+<li><a class="reference internal" href="#python-api-usage">Python API Usage</a></li>
+<li><a class="reference internal" href="#json-api-usage">JSON API Usage</a></li>
+<li><a class="reference internal" href="#tests">Tests</a></li>
+<li><a class="reference internal" href="#module-github.r351574nc3.internet_traffic_report">internet_traffic_report classes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to gaikai-code-example-2&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/gaikaisample.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to gaikai-code-example-2’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">gaikai-code-example-2 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Leo Przybylski.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
